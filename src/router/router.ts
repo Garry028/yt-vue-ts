@@ -1,4 +1,4 @@
-import { createWebHistory, createRouter } from 'vue-router';
+import { createRouter, createWebHistory } from 'vue-router';
 import Home from '../pages/Home.vue';
 import Video from '../pages/Video.vue';
 
@@ -9,6 +9,7 @@ const routes = [
     },
     {
         path: '/watch/:id',
+        name: "watch",
         component: Video
     }
 ];
