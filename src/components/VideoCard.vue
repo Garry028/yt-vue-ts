@@ -12,7 +12,8 @@
                         : 'rounded-lg',
                     showVideo ? 'delay-350 hidden' : ''
                 ]" />
-                <div class="w-full h-full aspect-video cursor-pointer bg-black" :class="showVideo ? '' : 'delay-350 hidden'">
+                <div class="w-full h-full aspect-video cursor-pointer bg-black"
+                    :class="showVideo ? '' : 'delay-350 hidden'">
                     <video ref="video" :src="videoUrl || ''" type="video/mp4" />
                 </div>
             </div>
@@ -49,7 +50,7 @@ interface Props {
     thumbnail: string;
 }
 
-const props = defineProps<Props>();
+defineProps<Props>();
 
 const show = ref(false);
 const showVideo = ref(false);
