@@ -2,7 +2,11 @@
     <NavLayout>
         <div class="xl:flex bg-black px-4 md:px-10">
             <div class="p-3">
-                <video @mouseover="show = true" :src="video.video || ''" controls autoplay />
+                <iframe :src="videoUrl" frameborder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowfullscreen
+                    class="w-full h-[300px] md:h-[400px] lg:h-[560px] xl:h-[600px] 2xl:h-[700px]"
+                    ></iframe>
                 <div class="text-white text-2xl font-extrabold mt-4">{{ video.title }}</div>
                 <div class="flex items-center mb-4">
                     <img class="rounded-full mt-2 flex items-baseline w-12 h-12"
@@ -29,8 +33,10 @@
                         Lorem ipsum dolor sit amet consectetur adipisicing elit.
                     </div>
                     <div class="text-sm font-extrabold">
-                        Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been
-                        the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley
+                        Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has
+                        been
+                        the industry's standard dummy text ever since the 1500s, when an unknown printer took a
+                        galley
                         of type and scrambled it to make a type specimen book.
                     </div>
                 </div>
@@ -51,7 +57,8 @@
                                 </div>
                                 <div class="mt-4 flex items-center">
                                     <ThumbUpOutline fillColor="#FFFFFF" :size="20" class="pr-2" />
-                                    <div class="text-gray-400 text-sm font-extrabold pr-10">{{ comment.likes }}</div>
+                                    <div class="text-gray-400 text-sm font-extrabold pr-10">{{ comment.likes }}
+                                    </div>
                                     <ThumbDownOutline fillColor="#FFFFFF" :size="20" />
                                 </div>
                             </div>
@@ -76,8 +83,11 @@ import ThumbUpOutline from 'vue-material-design-icons/ThumbUpOutline.vue';
 import RecommendedVideos from '../components/RecommendedVideos.vue';
 import thumbnailimg from '/src/assets/thumb.jpg';
 
+import { useRoute } from 'vue-router';
 import NavLayout from '../layouts/NavLayout.vue';
 
+const route = useRoute();
+const videoId = route.params.id;
 interface Video {
     id: string;
     video: string;
@@ -173,7 +183,11 @@ const recommendedVideos = ref<Video[]>([
         views: "1.1M"
     }
 ]);
+//     `https://www.youtube.com/embed/${props.video.id.videoId}?autoplay=1`;
 
+const videoUrl = ref<string>(
+    `https://www.youtube.com/embed/${videoId}?autoplay=1`
+);
 const show = ref<boolean>(false);
 
 </script>
