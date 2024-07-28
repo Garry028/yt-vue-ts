@@ -8,6 +8,8 @@ import { fetchFromAPI } from '../api/fetchFromAPI';
 import RecommendedVideos from '../components/RecommendedVideos.vue';
 import NavLayout from '../layouts/NavLayout.vue';
 import VueMarkdown from 'vue-markdown-render';
+import LoadingSpinner from '../components/LoadingSpinner.vue';
+
 const router = useRouter();
 const route = useRoute();
 const videoId = ref<any>(Array.isArray(route.params.id) ? route.params.id[0] : route.params.id || '');
@@ -42,38 +44,10 @@ const video = ref<Video>({
     commentCount: 0
 });
 
-const comments = ref<Comment[]>([
-    {
-        id: 1,
-        user: "Alice",
-        time: "2024-07-21T10:00:00Z",
-        text: "Amazing animation! Love the creativity!",
-        likes: 120
-    },
-    {
-        id: 2,
-        user: "Bob",
-        time: "2024-07-21T11:30:00Z",
-        text: "Great video! The graphics are top-notch.",
-        likes: 95
-    },
-    {
-        id: 3,
-        user: "Charlie",
-        time: "2024-07-21T12:15:00Z",
-        text: "Not bad, but I've seen better.",
-        likes: 30
-    },
-    {
-        id: 4,
-        user: "Diana",
-        time: "2024-07-21T13:45:00Z",
-        text: "The story is fantastic! Well done!",
-        likes: 150
-    }
-]);
+const comments = ref<Comment[]>([]);
 
 const recommendedVideos = ref<Video[]>([]);
+const loading = ref<boolean>(true);
 
 const fetchVideoData = async (id: string) => {
     const res = await fetchFromAPI(`videos?part=snippet,statistics&id=${id}`);
@@ -96,14 +70,15 @@ const fetchRecommendedVideos = async (id: string) => {
     const res = await fetchFromAPI(`search?part=snippet&relatedToVideoId=${id}`);
     recommendedVideos.value = res.items.map((item: any) => {
         return {
-            id: item.id.videoId,
+            id: item.id?.videoId,
             video: `https://www.youtube.com/embed/${item.id.videoId}?autoplay=1`,
-            title: item.snippet.title,
-            thumbnail: item.snippet.thumbnails.high.url,
-            user: item.snippet.channelTitle,
+            title: item.snippet?.title,
+            thumbnail: item.snippet.thumbnails.high?.url ||item.snippet.thumbnails.medium?.url || item.snippet.thumbnails.default?.url,
+            user: item.snippet?.channelTitle,
         };
     });
 };
+
 const fetchCommentsData = async (id: string) => {
     const res = await fetchFromAPI(`commentThreads?part=snippet&videoId=${id}`);
     comments.value = res.items.map((item: any) => {
@@ -116,17 +91,20 @@ const fetchCommentsData = async (id: string) => {
         };
     });
 };
+
+const fetchData = async (id: string) => {
+    loading.value = true;
+    await Promise.all([fetchVideoData(id), fetchRecommendedVideos(id), fetchCommentsData(id)]);
+    loading.value = false;
+};
+
 watch(() => route.params.id, async (newId: any) => {
     videoId.value = newId;
-    await fetchVideoData(newId);
-    await fetchRecommendedVideos(newId);
-    await fetchCommentsData(newId);
+    await fetchData(newId);
 });
 
 onMounted(async () => {
-    await fetchVideoData(videoId.value);
-    await fetchRecommendedVideos(videoId.value);
-    await fetchCommentsData(videoId.value);
+    await fetchData(videoId.value);
 });
 
 const navigateToVideo = (id: string) => {
@@ -137,7 +115,8 @@ const navigateToVideo = (id: string) => {
 <template>
     <NavLayout>
         <div class="xl:flex bg-black px-4 md:px-10">
-            <div class="p-3">
+            <LoadingSpinner v-if="loading" class="w-full h-screen" />
+            <div v-else class="p-3">
                 <iframe :src="video.video" frameborder="0"
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                     allowfullscreen
@@ -188,7 +167,7 @@ const navigateToVideo = (id: string) => {
                     </div>
                 </div>
             </div>
-            <div class="md:w-[500px] p-3 sm:block hidden">
+            <div v-if="!loading" class="md:w-[500px] p-3 sm:block hidden">
                 <div v-for="vid in recommendedVideos" :key="vid.id" @click="navigateToVideo(vid.id)">
                     <RecommendedVideos :vid="vid" />
                 </div>

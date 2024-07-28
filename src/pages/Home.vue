@@ -58,8 +58,8 @@ watch(searchTerm, (newTerm) => {
                 class="flex justify-center items-center w-full h-screen col-span-1 md:col-span-2 lg:col-span-3 xl:col-span-4">
                 <LoadingSpinner />
             </div>
-            <div v-else v-for=" (video) in videos" :key="video.id.videoId" @click="navigateToVideo(video.id.videoId)">
-                <VideoCard :video="video" />
+            <div v-else v-for="video in videos" :key="video?.id?.videoId" @click="navigateToVideo(video.id.videoId)">
+                <VideoCard v-if="video?.id.videoId" :video="video" />
             </div>
         </div>
     </NavLayout>
