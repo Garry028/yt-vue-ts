@@ -188,6 +188,6 @@ const recommendedVideos = ref<Video[]>([
 const videoUrl = ref<string>(
     `https://www.youtube.com/embed/${videoId}?autoplay=1`
 );
-const show = ref<boolean>(false);
+// const show = ref<boolean>(false);
 
 </script>
