@@ -49,11 +49,12 @@
                         <SideNavItem :openSideNav="true" iconString="Home" />
                     </router-link>
                     <div class="border-b border-b-gray-700 my-2.5"></div>
-                    <SideNavItem :openSideNav="true" iconString="Subscriptions" />
-                    <SideNavItem :openSideNav="true" iconString="Library" />
-                    <SideNavItem :openSideNav="true" iconString="Liked" />
-                    <SideNavItem :openSideNav="true" iconString="History" />
-                    <SideNavItem :openSideNav="true" iconString="Watch Later" />
+                    <SideNavItem :openSideNav="true" iconString="Music" @click="handleSelectedCategory('Music')" />
+                    <SideNavItem :openSideNav="true" iconString="Sports" @click="handleSelectedCategory('Sports')" />
+                    <SideNavItem :openSideNav="true" iconString="Gaming" @click="handleSelectedCategory('Gaming')" />
+                    <SideNavItem :openSideNav="true" iconString="Movies" @click="handleSelectedCategory('Movies')" />
+                    <SideNavItem :openSideNav="true" iconString="News" @click="handleSelectedCategory('News')" />
+                    <SideNavItem :openSideNav="true" iconString="Courses" @click="handleSelectedCategory('Courses')" />
                     <div v-if="true">
                         <div class="border-b border-b-gray-700 my-2.5"></div>
                         <div class="text-gray-400 text-[14px] font-extrabold">
@@ -96,6 +97,10 @@ const sideNavOverlay = ref<HTMLElement | null>(null);
 const width = ref(window.innerWidth);
 const slotSearchTerm = ref('');
 const route = useRoute();
+
+const handleSelectedCategory = (category: string) => {
+    slotSearchTerm.value = category;
+};
 
 onMounted(() => {
     resize();

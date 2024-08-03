@@ -18,7 +18,6 @@ const loading = ref<boolean>(true);
 
 const setSearchTerm = (term: string) => {
     searchTerm.value = term;
-    console.log(searchTerm.value);
 };
 
 let debounceTimer: number;
@@ -29,14 +28,12 @@ const debounceFetch = (callback: Function, delay: number) => {
 
 const fetchVideos = async (query: string) => {
     loading.value = true;
-    const data = await fetchFromAPI(`search?part=snippet&q=${query}`);
-    videos.value = data?.items || [];
+    const data = await fetchFromAPI(`search?part=snippet&q=${query === "" ? 'mostPopular':query }`);
+    const filteredVideos = data?.items.filter((item: any) => item?.id?.videoId);
+    videos.value = filteredVideos || [];
     loading.value = false;
-};
-
-// Initial fetch with an empty query
+}
 fetchVideos('');
-
 watch(searchTerm, (newTerm) => {
     if (newTerm.trim() === '') {
         fetchVideos('');

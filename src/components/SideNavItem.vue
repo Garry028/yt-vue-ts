@@ -13,14 +13,13 @@
 
 <script lang="ts" setup>
 import { computed } from 'vue';
-import Home from 'vue-material-design-icons/Home.vue';
-import FolderPlayOutline from 'vue-material-design-icons/FolderPlayOutline.vue';
-import ImageMultiple from 'vue-material-design-icons/ImageMultiple.vue';
-import ThumbUpOutline from 'vue-material-design-icons/ThumbUpOutline.vue';
-import History from 'vue-material-design-icons/History.vue';
-import ClockOutline from 'vue-material-design-icons/ClockOutline.vue';
-import VideoPlusOutlineIcon from 'vue-material-design-icons/VideoPlusOutline.vue';
-import DeleteIcon from 'vue-material-design-icons/Delete.vue';
+import CoursesIcon from 'vue-material-design-icons/Book.vue';
+import MoviesIcon from 'vue-material-design-icons/Filmstrip.vue';
+import GamingIcon from 'vue-material-design-icons/Gamepad.vue';
+import HomeIcon from 'vue-material-design-icons/Home.vue';
+import MusicIcon from 'vue-material-design-icons/Music.vue';
+import NewsIcon from 'vue-material-design-icons/Newspaper.vue';
+import SportsIcon from 'vue-material-design-icons/Run.vue';
 
 const props = defineProps<{
     openSideNav: boolean;
@@ -30,21 +29,19 @@ const props = defineProps<{
 const icon = computed(() => {
     switch (props.iconString) {
         case 'Home':
-            return Home;
-        case 'Subscriptions':
-            return FolderPlayOutline;
-        case 'Library':
-            return ImageMultiple;
-        case 'Liked':
-            return ThumbUpOutline;
-        case 'History':
-            return History;
-        case 'Watch Later':
-            return ClockOutline;
-        case 'Add Video':
-            return VideoPlusOutlineIcon;
-        case 'Delete Video':
-            return DeleteIcon;
+            return HomeIcon;
+        case 'Music':
+            return MusicIcon;
+        case 'Sports':
+            return SportsIcon;
+        case 'Gaming':
+            return GamingIcon;
+        case 'Movies':
+            return MoviesIcon;
+        case 'News':
+            return NewsIcon;
+        case 'Courses':
+            return CoursesIcon;
         default:
             return null;
     }
