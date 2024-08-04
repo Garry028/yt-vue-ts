@@ -50,7 +50,7 @@ watch(searchTerm, (newTerm) => {
         {{
             setSearchTerm(slotSearchTerm)
         }}
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 p-4 bg-black">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 p-4 dark:bg-black">
             <div v-if="loading"
                 class="flex justify-center items-center w-full h-screen col-span-1 md:col-span-2 lg:col-span-3 xl:col-span-4">
                 <LoadingSpinner />

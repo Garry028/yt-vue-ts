@@ -114,7 +114,7 @@ const navigateToVideo = (id: string) => {
 
 <template>
     <NavLayout>
-        <div class="xl:flex bg-black px-4 md:px-10">
+        <div class="xl:flex dark:bg-black px-4 md:px-10">
             <LoadingSpinner v-if="loading" class="w-full h-screen" />
             <div v-else class="p-3">
                 <iframe :src="video.video" frameborder="0"
@@ -126,11 +126,11 @@ const navigateToVideo = (id: string) => {
                     <img class="rounded-full mt-2 flex items-baseline w-12 h-12"
                         :src="`https://picsum.photos/id/${(Math.random() * 100).toFixed(0)}/100` || ''" />
                     <div class="pl-2 mt-1">
-                        <div class="text-white text-lg font-extrabold flex items-center">
+                        <div class="text-black dark:text-white text-lg font-extrabold flex items-center">
                             {{ video.user }}
                             <CheckCircle class="pl-2" fillColor="#888888" :size="17" />
                         </div>
-                        <div class="text-gray-400 text-sm font-extrabold">{{ video.views }} Subscribers</div>
+                        <div class="text-black dark:text-gray-400 text-sm font-extrabold">{{ video.views }} Subscribers</div>
                     </div>
                 </div>
                 <div class="md:w-[500px] p-1 md:p-3 block sm:hidden">
@@ -145,17 +145,17 @@ const navigateToVideo = (id: string) => {
                     </div>
                 </div>
                 <div class="max-h-full overflow-y-auto mt-4 border-b border-gray-600 pb-4 ">
-                    <div class="text-white text-lg font-extrabold">{{ video.commentCount }} Comments</div>
+                    <div class="text-black dark:text-white text-lg font-extrabold">{{ video.commentCount }} Comments</div>
                     <div v-for="comment in comments" :key="comment.id">
                         <div class="flex items-flex mb-4 mt-2">
                             <img class="rounded-full mt-2 w-12 h-12"
                                 :src="`https://picsum.photos/id/${(Math.random() * 100).toFixed(0)}/100` || ''" />
                             <div class="pl-6 mt-1">
-                                <div class="text-white font-extrabold flex items-baseline">
+                                <div class="text-black dark:text-white font-extrabold flex items-baseline">
                                     <div>{{ comment.user }}</div>
-                                    <div class="text-gray-400 pl-3">{{ comment.time }}</div>
+                                    <div class="text-gray-900 dark:text-gray-400 pl-3">{{ comment.time }}</div>
                                 </div>
-                                <div class="text-gray-200 text-sm font-extrabold" v-html="comment.text"></div>
+                                <div class="text-gray-900 dark:text-gray-200 text-sm font-extrabold" v-html="comment.text"></div>
                                 <div class="mt-2 flex items-center">
                                     <ThumbUpOutline fillColor="#FFFFFF" :size="20" class="pr-2" />
                                     <div class="text-gray-400 text-sm font-extrabold pr-10">{{ comment.likes }}

@@ -91,6 +91,7 @@ import MenuIcon from 'vue-material-design-icons/Menu.vue';
 import { useRoute } from 'vue-router';
 import SideNavItem from '../components/SideNavItem.vue';
 
+const darkMode = ref(false);
 const openSideNav = ref(false);
 const openSideNavOverlay = ref(false);
 const sideNavOverlay = ref<HTMLElement | null>(null);
@@ -101,6 +102,7 @@ const route = useRoute();
 const handleSelectedCategory = (category: string) => {
     slotSearchTerm.value = category;
 };
+
 
 onMounted(() => {
     resize();
