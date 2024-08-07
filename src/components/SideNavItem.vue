@@ -1,7 +1,7 @@
 <template>
     <li :class="[!openSideNav ? 'p-2' : 'flex items-center p-2']"
-        class="text-white text-sm font-semibold text-center hover:bg-gray-700 rounded-lg cursor-pointer">
-        <div :class="[!openSideNav ? 'w-full flex justify-center' : '']">
+        class="text-black dark:text-white text-sm font-semibold text-center hover:bg-gray-300 dark:hover:bg-gray-700 rounded-lg cursor-pointer">
+        <div :class="[!openSideNav ? 'w-full flex justify-center bg-gray-100 dark:bg-slate-900' : '']">
             <component :is="icon" />
         </div>
         <div :class="[!openSideNav ? '' : 'mt-1 ml-4']">
@@ -24,8 +24,11 @@ import SportsIcon from 'vue-material-design-icons/Run.vue';
 const props = defineProps<{
     openSideNav: boolean;
     iconString: string;
+    darkMode: boolean;
 }>();
-
+const setColor = computed(() => {
+    return props.darkMode ? '#FFFFFF' : '#000000';
+});
 const icon = computed(() => {
     switch (props.iconString) {
         case 'Home':

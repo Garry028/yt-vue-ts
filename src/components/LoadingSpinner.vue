@@ -1,6 +1,6 @@
 <template>
     <div class="flex items-center justify-center space-x-2">
-        <div class="w-4 h-4 border-4 border-t-4 border-t-transparent border-white rounded-full animate-spin"></div>
+        <div class="w-4 h-4 border-4 border-t-4 border-t-transparent border-black dark:border-white rounded-full animate-spin"></div>
     </div>
 </template>
 

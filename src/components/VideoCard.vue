@@ -1,20 +1,21 @@
 <template>
     <div class="relative">
-        <div class="rounded-lg bg-black m-2">
+        <div class="rounded-lg bg-white dark:bg-black m-2">
             <div @mouseover="show = true" @mouseleave="show = false; showVideo = false" class="flex justify-center">
                 <img class="aspect-video cursor-pointer w-full object-cover rounded-lg" :src="thumbnail || ''" />
             </div>
             <div>
                 <div class="flex mt-1.5">
                     <div>
-                        <img class="rounded-full  mt-2 flex items-baseline w-8 h-8 object-cover" :src="channelImage || ''">
+                        <img class="rounded-full mt-2 flex items-baseline w-8 h-8 object-cover" :src="channelImage || ''">
                     </div>
-                    <div class="px-1.5 text-white mt-1">
-                        <div class="text-[17px] font-bold w-full cursor-pointer">{{ title.substring(0, 100) }}
+                    <div class="px-1.5 text-black dark:text-white mt-1">
+                        <div class="text-[17px] font-bold w-full cursor-pointer">
+                            {{ title.substring(0, 100) }}
                         </div>
-                        <p class="text-[14px] text-gray-300 font-extrabold flex gap-1 items-center cursor-pointer">{{
-                            channelTitle.substring(0, 30) }}
-                            <CheckCircle fillColor="#888888" :size="17" />
+                        <p class="text-[14px] text-gray-600 dark:text-gray-300 font-extrabold flex gap-1 items-center cursor-pointer">
+                            {{ channelTitle.substring(0, 30) }}
+                            <CheckCircle :fillColor="isDarkMode ? '#AAAAAA' : '#888888'" :size="17" />
                         </p>
                     </div>
                 </div>
@@ -74,6 +75,7 @@ const iframeUrl = ref('');
 const title = ref('');
 const channelTitle = ref('');
 const channelImage = ref('');
+const isDarkMode = ref(false);
 
 onMounted(async () => {
     window.addEventListener('resize', () => {
@@ -84,6 +86,7 @@ onMounted(async () => {
     title.value = props.video.snippet.title;
     channelTitle.value = props.video.snippet.channelTitle;
     channelImage.value = props.video.snippet.thumbnails.default.url;
+    isDarkMode.value = document.documentElement.classList.contains('dark');
 });
 
 </script>
