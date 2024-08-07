@@ -24,11 +24,7 @@ import SportsIcon from 'vue-material-design-icons/Run.vue';
 const props = defineProps<{
     openSideNav: boolean;
     iconString: string;
-    darkMode: boolean;
 }>();
-const setColor = computed(() => {
-    return props.darkMode ? '#FFFFFF' : '#000000';
-});
 const icon = computed(() => {
     switch (props.iconString) {
         case 'Home':

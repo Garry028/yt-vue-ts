@@ -3,7 +3,8 @@
         <div id="TopNav"
             class="w-full h-[60px] fixed dark:bg-[#0f0f0f] bg-white dark:text-[#f1f1f1] text-black z-20 flex items-center justify-between">
             <div class="flex items-center">
-                <button @click="isNavOverlay()" class="p-2 ml-3 rounded-full bg-gray-100 dark:bg-slate-900 inline-block cursor-pointer">
+                <button @click="isNavOverlay()"
+                    class="p-2 ml-3 rounded-full bg-gray-100 dark:bg-slate-900 inline-block cursor-pointer">
                     <MenuIcon :fillColor="setColor" :size="26" />
                 </button>
                 <div class="mx-2"></div>
@@ -47,7 +48,7 @@
                 </div>
                 <ul class="w-full px-5 py-2 p-2 mt-2">
                     <router-link to="/">
-                        <SideNavItem :openSideNav="true" iconString="Home"  :darkMode="darkMode"/>
+                        <SideNavItem :openSideNav="true" iconString="Home" />
                     </router-link>
                     <div class="border-b dark:border-b-gray-700 border-b-gray-300 my-2.5"></div>
                     <SideNavItem :openSideNav="true" iconString="Music" @click="handleSelectedCategory('Music')" />
@@ -86,7 +87,7 @@
 </template>
 
 <script lang="ts" setup>
-import { onMounted, ref,computed } from 'vue';
+import { onMounted, ref, computed } from 'vue';
 import MagnifyIcon from 'vue-material-design-icons/Magnify.vue';
 import MenuIcon from 'vue-material-design-icons/Menu.vue';
 import { useRoute } from 'vue-router';
@@ -139,4 +140,5 @@ const isNavOverlay = () => {
 </script>
 
 
-<style scoped></style>
+<style scoped>
+</style>

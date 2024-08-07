@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onMounted, ref, watch ,computed} from 'vue';
+import { onMounted, ref, watch } from 'vue';
 import CheckCircle from 'vue-material-design-icons/CheckCircle.vue';
 import ThumbDownOutline from 'vue-material-design-icons/ThumbDownOutline.vue';
 import ThumbUpOutline from 'vue-material-design-icons/ThumbUpOutline.vue';
@@ -13,8 +13,6 @@ import LoadingSpinner from '../components/LoadingSpinner.vue';
 const router = useRouter();
 const route = useRoute();
 const videoId = ref<any>(Array.isArray(route.params.id) ? route.params.id[0] : route.params.id || '');
-const setColor = computed(() => {
-})
 interface Video {
     id: string;
     video: string;
@@ -112,14 +110,15 @@ onMounted(async () => {
 const navigateToVideo = (id: string) => {
     router.push({ name: 'watch', params: { id } });
 };
-function timeAgo(dateString) {
+function timeAgo(dateString: string): string {
     const date = new Date(dateString);
     const now = new Date();
 
-    const differenceInSeconds = Math.floor((now - date) / 1000);
+    // Ensure that the subtraction operation is between two numbers
+    const differenceInSeconds = Math.floor((now.getTime() - date.getTime()) / 1000);
 
     // Define the time intervals in seconds
-    const intervals = {
+    const intervals: { [key: string]: number } = {
         year: 365 * 24 * 60 * 60,
         month: 30 * 24 * 60 * 60,
         week: 7 * 24 * 60 * 60,
@@ -148,7 +147,8 @@ function timeAgo(dateString) {
             <div v-else class="p-3 md:w-[65%]">
                 <iframe :src="video.video" frameborder="0"
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowfullscreen class="w-full h-[300px] md:h-[400px] lg:h-[560px] xl:h-[500px] 2xl:h-[600px]"></iframe>
+                    allowfullscreen
+                    class="w-full h-[300px] md:h-[400px] lg:h-[560px] xl:h-[500px] 2xl:h-[600px]"></iframe>
                 <div class="text-black dark:text-white text-2xl font-extrabold mt-4">{{ video.title }}</div>
                 <div class="flex items-center mb-4">
                     <img class="rounded-full mt-2 flex items-baseline w-12 h-12"
